@@ -1,0 +1,1 @@
+Projeto de análise de sentimento de tweets
