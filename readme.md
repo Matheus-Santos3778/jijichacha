@@ -1,1 +1,1 @@
-Projeto de análise de sentimento de tweets
+ Sentiment analysis using tweets, daily retrival of tweets from Twitter, storing in a PostgreSQL database.
