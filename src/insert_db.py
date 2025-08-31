@@ -1,27 +1,28 @@
 import psycopg
 import pandas as pd
 
-with open('access/pswrd', 'r') as file:
-    pswrd = file.readlines()[0].strip()
+def execute():
 
-def insert_data(data, conn_params, table_name):
-    with psycopg.connect(**conn_params) as conn:
-        with conn.cursor() as cur:
-            placeholders = ", ".join(["%s"] * len(data.columns))
-            insert_sql = f"INSERT INTO {table_name} VALUES ({placeholders})"
-            cur.executemany(insert_sql, data.values.tolist())
-        
-        conn.commit()
+    with open('access/pswrd', 'r') as file:
+        pswrd = file.readlines()[0].strip()
 
-conn_params = {
-    "host": "localhost",
-    "dbname": "postgres",
-    "user": "postgres",
-    "password": pswrd
-}
+    def insert_data(data, conn_params, table_name):
+        with psycopg.connect(**conn_params) as conn:
+            with conn.cursor() as cur:
+                placeholders = ", ".join(["%s"] * len(data.columns))
+                insert_sql = f"INSERT INTO {table_name} VALUES ({placeholders})"
+                cur.executemany(insert_sql, data.values.tolist())
+            
+            conn.commit()
 
-data = pd.read_csv('data/tweets_01.csv')
+    conn_params = {
+        "host": "localhost",
+        "dbname": "postgres",
+        "user": "postgres",
+        "password": pswrd
+    }
 
-print('Inserindo dados')
-insert_data(data, conn_params, 'tweets')
-print('Dados inseridos')
+    data = pd.read_csv('data/tweets.csv')
+
+    insert_data(data, conn_params, 'tweets')
+    print('Dados inseridos')
