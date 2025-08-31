@@ -6,7 +6,7 @@ with open('access/access', 'r') as file:
 
 client = tweepy.Client(bearer_token=bearer_token)
 
-query = "#Tarcisio -is:retweet lang:pt"  #Tópico, sem retweets, apenas português
+query = "#Rússia -is:retweet lang:pt"  #Tópico, sem retweets, apenas português
 tweets = client.search_recent_tweets(query=query, max_results=100, tweet_fields=['created_at', 'public_metrics', 'author_id'])
 
 dados = []
@@ -24,5 +24,5 @@ for tweet in tweets.data:
 
 df = pd.DataFrame(dados)
 
-df.to_csv("data/tweets_python.csv", index=False)
+df.to_csv("data/tweets_02.csv", index=False)
 print("Arquivo CSV gerado com sucesso!")
